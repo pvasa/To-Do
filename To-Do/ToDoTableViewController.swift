@@ -10,11 +10,16 @@ import UIKit
 
 class ToDoTableViewController: UITableViewController {
 
-    var todoItems: [String] = ["ToDo1", "ToDo2"]
+    var todoItems: [ToDoItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let todo1: ToDoItem = ToDoItem("task1", "notes")
+        let todo2: ToDoItem = ToDoItem("task2", "notes")
+        
+        todoItems.append(contentsOf: [todo1, todo2])
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -38,7 +43,7 @@ class ToDoTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath) as! ToDoTableViewCell
 
-        cell.todoCellTitle.text = todoItems[indexPath.row]
+        cell.toDoCellTitle.text = todoItems[indexPath.row].title
 
         return cell
     }
@@ -48,17 +53,31 @@ class ToDoTableViewController: UITableViewController {
         // Return false if you do not want the specified item to be editable.
         return true
     }
- 
+
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .delete {
-            // Delete the row from the data source
+            todoItems.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
 
+    /*
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .default, title: "Done") { action in
+            //handle delete
+        }
+        
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { action in
+            //handle edit
+        }
+        
+        return [deleteAction, editAction]
+    }
+    */
     /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
