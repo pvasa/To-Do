@@ -2,21 +2,23 @@
 //  ToDoItem.swift
 //  To-Do
 //
-//  Created by Ryan on 2017-01-31.
+//  Created by Priyank Vasa on 2017-02-20.
 //  Copyright © 2017 Ryan. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import RealmSwift
 
-class ToDoItem: NSObject {
+class ToDoItem: Object {
     
-    var title: String = "Title"
-    var notes: String = "Notes"
-    var done: Bool = false
+    dynamic var title: String = "Title"
+    dynamic var notes: String = "Notes"
+    dynamic var done: Bool = false
+    dynamic var date: Date = Date()
     
-    init(_ title: String, _ notes: String?) {
-        self.title = title
-        self.notes = notes ?? ""
-    }
-
+// Specify properties to ignore (Realm won't persist these)
+    
+//  override static func ignoredProperties() -> [String] {
+//    return []
+//  }
 }

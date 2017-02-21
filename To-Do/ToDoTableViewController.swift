@@ -7,29 +7,23 @@
 //
 
 import UIKit
+import RealmSwift
 
-class ToDoTableViewController: UITableViewController {
+class ToDoTableViewController: UITableViewController, ToDoItemDelegate {
 
-    var todoItems: [ToDoItem] = []
+    let realm = try! Realm()
+    
+    var todoItems:List<ToDoItem> {
+        get {
+            return List(realm.objects(ToDoItem.self))
+        }
+        set(_todoItems) {
+            self.todoItems = _todoItems
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let todo1: ToDoItem = ToDoItem("task1", "notes")
-        let todo2: ToDoItem = ToDoItem("task2", "notes")
-        
-        todoItems.append(contentsOf: [todo1, todo2])
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -44,6 +38,7 @@ class ToDoTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath) as! ToDoTableViewCell
 
         cell.toDoCellTitle.text = todoItems[indexPath.row].title
+        cell.toDoCellTitle.alpha = todoItems[indexPath.row].done ? 0.4 : 1
 
         return cell
     }
@@ -54,17 +49,61 @@ class ToDoTableViewController: UITableViewController {
         return true
     }
 
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
-        if editingStyle == .delete {
-            todoItems.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        try! realm.write {
+            todoItems.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
+        }
     }
-
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let todoItem = todoItems[indexPath.row]
+        let cell = tableView.cellForRow(at: indexPath) as! ToDoTableViewCell
+        
+        let toggleDoneAction = UITableViewRowAction(style: .normal, title: "Done") { (action, indexPath) in
+            try! self.realm.write {
+                todoItem.done = !todoItem.done
+            }
+            tableView.reloadRows(at: [indexPath], with: .right)
+        }
+        
+        if (todoItem.done) {
+            toggleDoneAction.title = "Undone"
+            cell.toDoCellTitle.alpha = 0.4
+        } else {
+            toggleDoneAction.title = "Done"
+            cell.toDoCellTitle.alpha = 1
+        }
+        
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
+            try! self.realm.write {
+                self.realm.delete(self.todoItems[indexPath.row])
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+        }
+        
+        return [toggleDoneAction, deleteAction]
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let segueId = segue.identifier else { return }
+        
+        switch segueId {
+        case "detailSegue":
+            (segue.destination as! ToDoItemDetailsViewController).delegate = self
+            break
+        default:
+            break
+        }
+    }
+    
+    func addItem(_ todoItem: ToDoItem) {
+        try! realm.write {
+            realm.add(todoItem)
+            self.tableView.insertRows(at: [IndexPath(row: todoItems.count - 1, section: 0)], with: .automatic)
+        }
+    }
+    
     /*
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .default, title: "Done") { action in

@@ -14,8 +14,27 @@
 		941A632D1E417B07002B9156 /* ToDoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941A632C1E417B07002B9156 /* ToDoTableViewController.swift */; };
 		941A632F1E417D65002B9156 /* ToDoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941A632E1E417D65002B9156 /* ToDoTableViewCell.swift */; };
 		941A63311E4180E0002B9156 /* ToDoItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941A63301E4180E0002B9156 /* ToDoItemDetailsViewController.swift */; };
-		941A63331E418861002B9156 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941A63321E418861002B9156 /* ToDoItem.swift */; };
+		9421A2721E5BB692008681C2 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9421A2711E5BB692008681C2 /* ToDoItem.swift */; };
+		94B3C8E51E5BB38000F59102 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94B3C8E31E5BB38000F59102 /* Realm.framework */; };
+		94B3C8E61E5BB38000F59102 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94B3C8E31E5BB38000F59102 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94B3C8E71E5BB38000F59102 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94B3C8E41E5BB38000F59102 /* RealmSwift.framework */; };
+		94B3C8E81E5BB38000F59102 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94B3C8E41E5BB38000F59102 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		94B3C8E91E5BB38100F59102 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				94B3C8E81E5BB38000F59102 /* RealmSwift.framework in Embed Frameworks */,
+				94B3C8E61E5BB38000F59102 /* Realm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		941A63151E417710002B9156 /* To-Do.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To-Do.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -27,7 +46,9 @@
 		941A632C1E417B07002B9156 /* ToDoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoTableViewController.swift; sourceTree = "<group>"; };
 		941A632E1E417D65002B9156 /* ToDoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoTableViewCell.swift; sourceTree = "<group>"; };
 		941A63301E4180E0002B9156 /* ToDoItemDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItemDetailsViewController.swift; sourceTree = "<group>"; };
-		941A63321E418861002B9156 /* ToDoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
+		9421A2711E5BB692008681C2 /* ToDoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
+		94B3C8E31E5BB38000F59102 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		94B3C8E41E5BB38000F59102 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +56,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94B3C8E71E5BB38000F59102 /* RealmSwift.framework in Frameworks */,
+				94B3C8E51E5BB38000F59102 /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +67,8 @@
 		941A630C1E417710002B9156 = {
 			isa = PBXGroup;
 			children = (
+				94B3C8E31E5BB38000F59102 /* Realm.framework */,
+				94B3C8E41E5BB38000F59102 /* RealmSwift.framework */,
 				941A63171E417710002B9156 /* To-Do */,
 				941A63161E417710002B9156 /* Products */,
 			);
@@ -68,7 +93,7 @@
 				941A63241E417710002B9156 /* Info.plist */,
 				941A632E1E417D65002B9156 /* ToDoTableViewCell.swift */,
 				941A63301E4180E0002B9156 /* ToDoItemDetailsViewController.swift */,
-				941A63321E418861002B9156 /* ToDoItem.swift */,
+				9421A2711E5BB692008681C2 /* ToDoItem.swift */,
 			);
 			path = "To-Do";
 			sourceTree = "<group>";
@@ -83,6 +108,8 @@
 				941A63111E417710002B9156 /* Sources */,
 				941A63121E417710002B9156 /* Frameworks */,
 				941A63131E417710002B9156 /* Resources */,
+				94B3C8E91E5BB38100F59102 /* Embed Frameworks */,
+				94B3C8EA1E5BB3B700F59102 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -141,6 +168,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		94B3C8EA1E5BB3B700F59102 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		941A63111E417710002B9156 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -148,7 +191,7 @@
 			files = (
 				941A63311E4180E0002B9156 /* ToDoItemDetailsViewController.swift in Sources */,
 				941A632F1E417D65002B9156 /* ToDoTableViewCell.swift in Sources */,
-				941A63331E418861002B9156 /* ToDoItem.swift in Sources */,
+				9421A2721E5BB692008681C2 /* ToDoItem.swift in Sources */,
 				941A63191E417710002B9156 /* AppDelegate.swift in Sources */,
 				941A632D1E417B07002B9156 /* ToDoTableViewController.swift in Sources */,
 			);
@@ -274,6 +317,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 2BULHRS882;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "To-Do/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ryan.To-Do";
@@ -287,6 +334,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 2BULHRS882;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "To-Do/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ryan.To-Do";
@@ -314,6 +365,7 @@
 				941A63291E417710002B9156 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

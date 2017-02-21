@@ -8,8 +8,16 @@
 
 import UIKit
 
+protocol ToDoItemDelegate {
+    func addItem(_ todoItem: ToDoItem)
+}
+
 class ToDoItemDetailsViewController: UIViewController {
 
+    @IBOutlet weak var titleText: UITextField!
+    @IBOutlet weak var notesText: UITextField!
+    var delegate: ToDoItemDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,6 +29,16 @@ class ToDoItemDetailsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func saveItem(_ sender: UIBarButtonItem) {
+        if ((titleText.text!.characters.count) > 0) {
+            if let delegate = delegate {
+                let newItem = ToDoItem()
+                newItem.title = titleText.text!
+                newItem.notes = notesText.text!
+                delegate.addItem(newItem)
+            }
+        }
+    }
     /*
     // MARK: - Navigation
 
