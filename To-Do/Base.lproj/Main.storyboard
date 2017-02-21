@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,33 +15,44 @@
         <scene sceneID="rYD-Ja-A7j">
             <objects>
                 <tableViewController id="MCl-1x-WsM" customClass="ToDoTableViewController" customModule="To_Do" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="APo-cx-fde">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="108" sectionHeaderHeight="28" sectionFooterHeight="28" id="APo-cx-fde">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="todoCell" rowHeight="80" id="hSW-9T-nyn" customClass="ToDoTableViewCell" customModule="To_Do" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="80"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="todoCell" rowHeight="108" id="hSW-9T-nyn" customClass="ToDoTableViewCell" customModule="To_Do" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="108"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hSW-9T-nyn" id="sSb-wa-N8O">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="107"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ToDo item title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asr-qW-h72">
-                                            <rect key="frame" x="19" y="8" width="356" height="63"/>
+                                            <rect key="frame" x="8" y="8" width="359" height="57"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ayy-yw-uQz">
+                                            <rect key="frame" x="8" y="61" width="359" height="26"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="asr-qW-h72" firstAttribute="bottom" secondItem="sSb-wa-N8O" secondAttribute="bottomMargin" id="UNW-3w-0xP"/>
-                                        <constraint firstItem="asr-qW-h72" firstAttribute="leading" secondItem="sSb-wa-N8O" secondAttribute="leadingMargin" constant="11" id="dAv-3C-K1z"/>
-                                        <constraint firstItem="asr-qW-h72" firstAttribute="top" secondItem="sSb-wa-N8O" secondAttribute="topMargin" id="nXR-j7-gl9"/>
-                                        <constraint firstAttribute="trailing" secondItem="asr-qW-h72" secondAttribute="trailing" id="uXi-VD-qLk"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="asr-qW-h72" secondAttribute="bottom" constant="34" id="0d2-gV-Qlf"/>
+                                        <constraint firstItem="asr-qW-h72" firstAttribute="leading" secondItem="Ayy-yw-uQz" secondAttribute="leading" id="HK8-oq-Y91"/>
+                                        <constraint firstItem="asr-qW-h72" firstAttribute="top" secondItem="sSb-wa-N8O" secondAttribute="topMargin" id="JVj-f0-hVt"/>
+                                        <constraint firstItem="asr-qW-h72" firstAttribute="trailing" secondItem="Ayy-yw-uQz" secondAttribute="trailing" id="X28-Y4-paW"/>
+                                        <constraint firstItem="asr-qW-h72" firstAttribute="trailing" secondItem="sSb-wa-N8O" secondAttribute="trailingMargin" id="gfU-Ig-gPI"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Ayy-yw-uQz" secondAttribute="bottom" constant="12" id="iKp-V8-JQn"/>
+                                        <constraint firstItem="asr-qW-h72" firstAttribute="leading" secondItem="sSb-wa-N8O" secondAttribute="leadingMargin" id="pZ5-ar-DrY"/>
+                                        <constraint firstItem="Ayy-yw-uQz" firstAttribute="top" secondItem="sSb-wa-N8O" secondAttribute="topMargin" constant="53" id="xZY-Wk-Lxg"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="toDoCellDate" destination="Ayy-yw-uQz" id="LHM-Fd-hY7"/>
                                     <outlet property="toDoCellTitle" destination="asr-qW-h72" id="vHO-mn-MMb"/>
                                 </connections>
                             </tableViewCell>
@@ -51,6 +63,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="ToDo list" id="unv-5y-KqW">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="zQk-sp-a6F"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="oVU-fI-B5q">
                             <connections>
                                 <segue destination="r6l-69-MTw" kind="show" identifier="detailSegue" id="p2G-U2-bVa"/>
@@ -98,29 +111,56 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="5tr-Ik-Vy3">
+                                <rect key="frame" x="16" y="249" width="343" height="208"/>
+                                <date key="date" timeIntervalSinceReferenceDate="509338961.338153">
+                                    <!--2017-02-21 03:02:41 +0000-->
+                                </date>
+                            </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3J-sJ-KdF">
+                                <rect key="frame" x="16" y="220" width="36" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="71L-zx-qMW" firstAttribute="top" secondItem="lah-M5-dxb" secondAttribute="bottom" constant="36" id="1MS-tA-9dg"/>
-                            <constraint firstItem="71L-zx-qMW" firstAttribute="leading" secondItem="geq-ou-x6h" secondAttribute="trailing" constant="19" id="1Nm-t2-jxP"/>
-                            <constraint firstItem="mHN-iC-Lfq" firstAttribute="centerY" secondItem="lah-M5-dxb" secondAttribute="centerY" id="2gN-ck-B5g"/>
-                            <constraint firstItem="lah-M5-dxb" firstAttribute="trailing" secondItem="f6P-ns-KQU" secondAttribute="trailingMargin" id="5KM-iK-N1L"/>
-                            <constraint firstItem="mHN-iC-Lfq" firstAttribute="leading" secondItem="f6P-ns-KQU" secondAttribute="leadingMargin" id="GhG-rj-igp"/>
-                            <constraint firstItem="geq-ou-x6h" firstAttribute="centerY" secondItem="71L-zx-qMW" secondAttribute="centerY" id="MDh-8Q-Dcc"/>
-                            <constraint firstItem="lah-M5-dxb" firstAttribute="leading" secondItem="71L-zx-qMW" secondAttribute="leading" id="aXp-Mx-NjN"/>
-                            <constraint firstItem="mHN-iC-Lfq" firstAttribute="leading" secondItem="geq-ou-x6h" secondAttribute="leading" id="lf3-lc-ZGW"/>
-                            <constraint firstItem="lah-M5-dxb" firstAttribute="top" secondItem="ImJ-3D-ett" secondAttribute="bottom" constant="22" id="vXy-DX-pSb"/>
-                            <constraint firstItem="lah-M5-dxb" firstAttribute="trailing" secondItem="71L-zx-qMW" secondAttribute="trailing" id="yLj-mv-eED"/>
+                            <constraint firstItem="lah-M5-dxb" firstAttribute="trailing" secondItem="71L-zx-qMW" secondAttribute="trailing" id="1gA-Nt-Mh8"/>
+                            <constraint firstItem="Z3J-sJ-KdF" firstAttribute="top" secondItem="geq-ou-x6h" secondAttribute="bottom" constant="42" id="3hk-YK-Eyj"/>
+                            <constraint firstItem="geq-ou-x6h" firstAttribute="centerY" secondItem="71L-zx-qMW" secondAttribute="centerY" id="4kL-HF-YqQ"/>
+                            <constraint firstItem="Z3J-sJ-KdF" firstAttribute="leading" secondItem="5tr-Ik-Vy3" secondAttribute="leading" id="6bN-a8-tz9"/>
+                            <constraint firstItem="5tr-Ik-Vy3" firstAttribute="top" secondItem="71L-zx-qMW" secondAttribute="bottom" constant="67" id="9Lv-Oh-L3c"/>
+                            <constraint firstItem="71L-zx-qMW" firstAttribute="trailing" secondItem="5tr-Ik-Vy3" secondAttribute="trailing" id="MYv-U7-wX4"/>
+                            <constraint firstItem="71L-zx-qMW" firstAttribute="top" secondItem="lah-M5-dxb" secondAttribute="bottom" constant="36" id="NkK-G8-9p4"/>
+                            <constraint firstItem="mHN-iC-Lfq" firstAttribute="leading" secondItem="f6P-ns-KQU" secondAttribute="leadingMargin" id="XdJ-0e-4lB"/>
+                            <constraint firstItem="71L-zx-qMW" firstAttribute="leading" secondItem="geq-ou-x6h" secondAttribute="trailing" constant="19" id="Ywb-hk-SvB"/>
+                            <constraint firstItem="lah-M5-dxb" firstAttribute="leading" secondItem="71L-zx-qMW" secondAttribute="leading" id="b9B-XI-rPh"/>
+                            <constraint firstItem="lah-M5-dxb" firstAttribute="trailing" secondItem="f6P-ns-KQU" secondAttribute="trailingMargin" id="c7L-nm-e89"/>
+                            <constraint firstItem="geq-ou-x6h" firstAttribute="leading" secondItem="Z3J-sJ-KdF" secondAttribute="leading" id="dmw-Mf-9VX"/>
+                            <constraint firstItem="pnL-4X-fXb" firstAttribute="top" secondItem="5tr-Ik-Vy3" secondAttribute="bottom" constant="210" id="eqd-gl-Wzk"/>
+                            <constraint firstItem="mHN-iC-Lfq" firstAttribute="leading" secondItem="geq-ou-x6h" secondAttribute="leading" id="f1w-RJ-SSM"/>
+                            <constraint firstItem="5tr-Ik-Vy3" firstAttribute="top" secondItem="Z3J-sJ-KdF" secondAttribute="bottom" constant="8" symbolic="YES" id="fPB-Tn-0wa"/>
+                            <constraint firstItem="mHN-iC-Lfq" firstAttribute="top" secondItem="ImJ-3D-ett" secondAttribute="bottom" constant="27" id="mYQ-lt-6lp"/>
+                            <constraint firstItem="mHN-iC-Lfq" firstAttribute="centerY" secondItem="lah-M5-dxb" secondAttribute="centerY" id="q9I-hp-bzk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add/Update ToDo item" id="EZl-1t-i1y">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="cOe-cN-Uik">
-                            <connections>
-                                <action selector="saveItem:" destination="r6l-69-MTw" id="TbX-xw-Tve"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="save" id="cOe-cN-Uik">
+                                <connections>
+                                    <action selector="saveItem:" destination="r6l-69-MTw" id="TbX-xw-Tve"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Delete" id="YYV-mX-pOM">
+                                <connections>
+                                    <action selector="deleteItem:" destination="r6l-69-MTw" id="ohi-cn-qHP"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="date" destination="5tr-Ik-Vy3" id="FCl-I1-kSC"/>
                         <outlet property="notesText" destination="71L-zx-qMW" id="yWM-Jf-cej"/>
                         <outlet property="titleText" destination="lah-M5-dxb" id="BaY-NK-vns"/>
                     </connections>

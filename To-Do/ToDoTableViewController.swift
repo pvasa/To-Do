@@ -2,7 +2,7 @@
 //  ToDoTableViewController.swift
 //  To-Do
 //
-//  Created by Ryan on 2017-01-31.
+//  Created by Ryan on 2017-01-31. - 300872404
 //  Copyright © 2017 Ryan. All rights reserved.
 //
 
@@ -11,11 +11,11 @@ import RealmSwift
 
 class ToDoTableViewController: UITableViewController, ToDoItemDelegate {
 
-    let realm = try! Realm()
+    var realm = try! Realm() // Load realm object
     
     var todoItems:List<ToDoItem> {
         get {
-            return List(realm.objects(ToDoItem.self))
+            return List(realm.objects(ToDoItem.self)) // return data from realm
         }
         set(_todoItems) {
             self.todoItems = _todoItems
@@ -24,6 +24,7 @@ class ToDoTableViewController: UITableViewController, ToDoItemDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.leftBarButtonItem = self.editButtonItem // Edit button
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -37,8 +38,16 @@ class ToDoTableViewController: UITableViewController, ToDoItemDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath) as! ToDoTableViewCell
 
+        // Set cell text and properties
+        
         cell.toDoCellTitle.text = todoItems[indexPath.row].title
         cell.toDoCellTitle.alpha = todoItems[indexPath.row].done ? 0.4 : 1
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        let timeString = dateFormatter.string(from: todoItems[indexPath.row].date as Date)
+        cell.toDoCellDate.text = String(timeString)
+        cell.toDoCellDate.alpha = todoItems[indexPath.row].done ? 0.4 : 1
 
         return cell
     }
@@ -48,18 +57,19 @@ class ToDoTableViewController: UITableViewController, ToDoItemDelegate {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-
+    
+    // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        try! realm.write {
-            todoItems.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
-        }
+        moveItem(from: sourceIndexPath.row, to: destinationIndexPath.row) // Move item
     }
     
+    // Custom actions for swipe gesture
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let todoItem = todoItems[indexPath.row]
         let cell = tableView.cellForRow(at: indexPath) as! ToDoTableViewCell
         
+        // Done/Undone action for an item
         let toggleDoneAction = UITableViewRowAction(style: .normal, title: "Done") { (action, indexPath) in
             try! self.realm.write {
                 todoItem.done = !todoItem.done
@@ -75,71 +85,64 @@ class ToDoTableViewController: UITableViewController, ToDoItemDelegate {
             cell.toDoCellTitle.alpha = 1
         }
         
+        // Delete action for an item
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
-            try! self.realm.write {
-                self.realm.delete(self.todoItems[indexPath.row])
-                self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            }
+            self.deleteItem(at: indexPath.row)
         }
         
         return [toggleDoneAction, deleteAction]
     }
     
+    // Pass todo item to details page
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let segueId = segue.identifier else { return }
         
         switch segueId {
         case "detailSegue":
-            (segue.destination as! ToDoItemDetailsViewController).delegate = self
+            let destinationVC = segue.destination as! ToDoItemDetailsViewController
+            destinationVC.delegate = self
+            if (tableView.indexPathForSelectedRow?.row != nil) {
+                destinationVC.todoItem = todoItems[(tableView.indexPathForSelectedRow?.row)!]
+            }
             break
         default:
             break
         }
     }
     
+    // Go to details page on cell click
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "detailSegue", sender: Any?.self)
+    }
+    
+    // Add item to db
     func addItem(_ todoItem: ToDoItem) {
+        todoItem.index = todoItems.count
         try! realm.write {
             realm.add(todoItem)
-            self.tableView.insertRows(at: [IndexPath(row: todoItems.count - 1, section: 0)], with: .automatic)
+            self.tableView.insertRows(at: [IndexPath(row: todoItem.index, section: 0)], with: .automatic)
         }
     }
     
-    /*
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deleteAction = UITableViewRowAction(style: .default, title: "Done") { action in
-            //handle delete
+    // Delete item from db
+    func deleteItem(at: Int) {
+        try! realm.write {
+            realm.delete(todoItems[at])
+            self.tableView.deleteRows(at: [IndexPath(item: at, section: 0)], with: .automatic)
         }
-        
-        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { action in
-            //handle edit
+    }
+    
+    // Update item in db
+    func updateItem(at: Int, with: ToDoItem) {
+        self.deleteItem(at: at)
+        self.addItem(with)
+    }
+    
+    // Move item position
+    func moveItem(from: Int, to: Int) {
+        try! realm.write {
+            todoItems.move(from: from, to: to)
+            //tableView.reloadData()
         }
-        
-        return [deleteAction, editAction]
     }
-    */
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

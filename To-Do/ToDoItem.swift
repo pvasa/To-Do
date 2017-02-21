@@ -11,14 +11,10 @@ import RealmSwift
 
 class ToDoItem: Object {
     
-    dynamic var title: String = "Title"
-    dynamic var notes: String = "Notes"
-    dynamic var done: Bool = false
-    dynamic var date: Date = Date()
+    dynamic var index: Int = 0 // Item index
+    dynamic var title: String = "Title" // Item title
+    dynamic var notes: String = "Notes" // Item notes
+    dynamic var done: Bool = false // Item done or not
+    dynamic var date: Date = Date() // Item date
     
-// Specify properties to ignore (Realm won't persist these)
-    
-//  override static func ignoredProperties() -> [String] {
-//    return []
-//  }
 }
